@@ -1,0 +1,39 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+  background-color: black;
+
+}
+
+#calculadora {
+  background-color: rgb(43, 76, 154);
+  margin: 0 auto;
+  width: 400px;
+  border: 36px solid orange;
+  border-radius: 20px;
+  padding: 10px;
+
+  #resultado{
+    height: 50px;
+    border: 1px solid white;
+    color: white;
+    text-align: end;
+  }
+
+  .linha{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+
+
+    input[type=button]{
+      width: 20%;
+    }
+  }
+
+}
