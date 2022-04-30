@@ -20,7 +20,12 @@ body {
 
 #calculadora #resultado {
   height: 50px;
-  border: 1px solid white;
+  color: white;
+  text-align: end;
+  letter-spacing: 2px;
+}
+
+#calculadora #historico {
   color: white;
   text-align: end;
   letter-spacing: 2px;

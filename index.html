@@ -13,6 +13,7 @@
 
   <form id="calculadora">
 
+    <h3 id="historico"></h3>
     <h2 id="resultado"></h2>
 
     <div class="linha">
@@ -21,7 +22,7 @@
       <!-- Função Corrigir -->
       <input onClick="corrigir()" type="button" value="C">
       <!-- Salvar -->
-      <input onClick="Salvar()" type="button" value="Save">
+      <input onClick="salvar()" type="button" value="Save">
     </div>
 
     <div class="linha">
@@ -29,7 +30,7 @@
       <input onClick="botaoNumerico('8')" type="button" value="8">
       <input onClick="botaoNumerico('9')" type="button" value="9">
       <!-- DIVISÃO -->
-      <input onClick="botaoOperador('/')" type="button" value="/">
+      <input onClick="botaoOperador(' / ')" type="button" value="/">
     </div>
 
     <div class="linha">
@@ -37,7 +38,7 @@
       <input onClick="botaoNumerico('5')" type="button" value="5">
       <input onClick="botaoNumerico('6')" type="button" value="6">
       <!-- MULTIPLICAÇÃO -->
-      <input onClick="botaoOperador('*')" type="button" value="x">
+      <input onClick="botaoOperador(' * ')" type="button" value="x">
     </div>
 
     <div class="linha">
@@ -45,7 +46,7 @@
       <input onClick="botaoNumerico('2')" type="button" value="2">
       <input onClick="botaoNumerico('3')" type="button" value="3">
       <!-- SUBTRAÇÃO -->
-      <input onClick="botaoOperador('-')" type="button" value="-">
+      <input onClick="botaoOperador(' - ')" type="button" value="-">
     </div>
 
     <div class="linha">
@@ -53,19 +54,25 @@
       <!-- Ponto -->
       <input onClick="botaoNumerico('.')" type="button" value=".">
       <!-- IGUALDADE, Função de CALCULAR -->
-      <input type="button" value="=" onClick="calcular()">
+      <input type="button" value="=" onClick="calcular('=')">
       <!-- SOMA -->
-      <input onClick="botaoOperador('+')" type="button" value="+">
+      <input onClick="botaoOperador(' + ')" type="button" value="+">
 
     </div>
   </form>
 
+  <p id="dadosHistorico"></p>
+
   <script>
 
-    var telaResultado = document.getElementById("resultado");
+    let telaResultado = document.getElementById("resultado");
     telaResultado.innerHTML = '0';
+    let historico = document.getElementById('historico')
+    historico.innerHTML = "crie um cálculo"
 
-    var expression = [];
+
+
+    var dadosHistorico = [];
     var input = 0;
 
     function botaoNumerico(value) {
@@ -80,28 +87,42 @@
     }
 
     function botaoOperador(operator) {
-      if (input !== 0 && input !== "-") {
-        if (operator === "*") {
-          telaResultado.innerHTML += "x"
+      if (input !== 0 && input !== " - ") {
+        if (operator === " * ") {
+          telaResultado.innerHTML += " x "
           input = 0;
         }
-        if (operator !== "*") {
+        if (operator !== " * ") {
           telaResultado.innerHTML += operator;
           input = 0;
         }
       }
     }
 
-    function calcular() {
+    function calcular(value) {
+      historico.innerHTML = telaResultado.innerHTML + " " + value + " "
       var expressao = telaResultado.innerHTML
-      var expressaoCorrigida = expressao.replace(/[x]/g, "*")
+      var expressaoCorrigida = expressao.replace(/[x]/g, " * ")
       var resultado = eval(expressaoCorrigida)
+      dadosHistorico.push(historico.innerHTML + resultado)
+      console.log(dadosHistorico)
       telaResultado.innerHTML = resultado
     }
 
     function deletar() {
       telaResultado.innerHTML = "0"
+      historico.innerHTML = ""
       input = 0
+      // dados = []
+    }
+
+    function corrigir(){
+        input = input.slice(0,-1)
+        telaResultado.innerHTML = telaResultado.innerHTML.slice(0,-1)
+    }
+
+    function salvar(){
+      window.alert(dadosHistorico)
     }
 
   </script>

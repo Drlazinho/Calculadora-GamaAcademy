@@ -19,9 +19,15 @@ body{
 
   #resultado{
     height: 50px;
-    border: 1px solid white;
     color: white;
     text-align: end;
+    letter-spacing: 2px;
+  }
+
+  #historico{
+    color: white;
+    text-align: end;
+    letter-spacing: 2px;
   }
 
   .linha{
