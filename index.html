@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,6 +8,7 @@
   <link rel="stylesheet" href="style.css">
   <title>Calculador Gama Academy</title>
 </head>
+
 <body>
 
   <form id="calculadora">
@@ -14,54 +16,95 @@
     <h2 id="resultado"></h2>
 
     <div class="linha">
-      <!-- Parenteses -->
-      <input onClick="enviar(' ( ')" type="button" value="(">
-      <input onClick="enviar(' ) ')" type="button" value=")">
-      <!-- Calcular Porcentagem -->
-      <input onClick="enviar(' % ')" type="button" value="%">
       <!-- Função Apagar -->
-      <input onClick=""  type="button" value="AC"> 
+      <input onClick="deletar()" type="button" value="AC">
+      <!-- Função Corrigir -->
+      <input onClick="corrigir()" type="button" value="C">
+      <!-- Salvar -->
+      <input onClick="Salvar()" type="button" value="Save">
     </div>
 
     <div class="linha">
-      <input onClick="enviar('7')" type="button" value="7">
-      <input onClick="enviar('8')"  type="button" value="8">
-      <input onClick="enviar('9')"  type="button" value="9">
+      <input onClick="botaoNumerico('7')" type="button" value="7">
+      <input onClick="botaoNumerico('8')" type="button" value="8">
+      <input onClick="botaoNumerico('9')" type="button" value="9">
       <!-- DIVISÃO -->
-      <input onClick="enviar(' / ')" type="button" value="/">
+      <input onClick="botaoOperador('/')" type="button" value="/">
     </div>
+
     <div class="linha">
-      <input onClick="enviar('4')" type="button" value="4">
-      <input onClick="enviar('5')" type="button" value="5">
-      <input onClick="enviar('6')"  type="button" value="6">
+      <input onClick="botaoNumerico('4')" accesskey="52" type="button" value="4">
+      <input onClick="botaoNumerico('5')" type="button" value="5">
+      <input onClick="botaoNumerico('6')" type="button" value="6">
       <!-- MULTIPLICAÇÃO -->
-      <input onClick="enviar(' x ')"  type="button" value="x">
+      <input onClick="botaoOperador('*')" type="button" value="x">
     </div>
+
     <div class="linha">
-      <input onClick="enviar('1')"  type="button" value="1">
-      <input onClick="enviar('2')"  type="button" value="2">
-      <input onClick="enviar('3')" type="button" value="3">
+      <input onClick="botaoNumerico('1')" type="button" value="1">
+      <input onClick="botaoNumerico('2')" type="button" value="2">
+      <input onClick="botaoNumerico('3')" type="button" value="3">
       <!-- SUBTRAÇÃO -->
-      <input onClick="enviar(' - ')" type="button" value="-">
+      <input onClick="botaoOperador('-')" type="button" value="-">
     </div>
+
     <div class="linha">
-      <input onClick="enviar('0')"  type="button" value="0">
+      <input onClick="botaoNumerico('0')" type="button" value="0">
       <!-- Ponto -->
-      <input onClick="enviar(' . ')"  type="button" value=".">
-      <!-- IGUALDADE -->
-      <input type="button" value="=">
+      <input onClick="botaoNumerico('.')" type="button" value=".">
+      <!-- IGUALDADE, Função de CALCULAR -->
+      <input type="button" value="=" onClick="calcular()">
       <!-- SOMA -->
-      <input onClick="enviar(' + ')" type="button" value="+">
+      <input onClick="botaoOperador('+')" type="button" value="+">
+
     </div>
   </form>
 
   <script>
 
-    function enviar(valor){
-      var telaResultado = document.getElementById("resultado")
-      telaResultado.innerHTML += valor
+    var telaResultado = document.getElementById("resultado");
+    telaResultado.innerHTML = '0';
+
+    var expression = [];
+    var input = 0;
+
+    function botaoNumerico(value) {
+
+      if (telaResultado.innerHTML == "0" && value != ".") {
+        telaResultado.innerHTML = ""
+      }
+      if (!(value == ".") || !input.match(/[.]/)) {
+        input += value
+        telaResultado.innerHTML += value
+      }
+    }
+
+    function botaoOperador(operator) {
+      if (input !== 0 && input !== "-") {
+        if (operator === "*") {
+          telaResultado.innerHTML += "x"
+          input = 0;
+        }
+        if (operator !== "*") {
+          telaResultado.innerHTML += operator;
+          input = 0;
+        }
+      }
+    }
+
+    function calcular() {
+      var expressao = telaResultado.innerHTML
+      var expressaoCorrigida = expressao.replace(/[x]/g, "*")
+      var resultado = eval(expressaoCorrigida)
+      telaResultado.innerHTML = resultado
+    }
+
+    function deletar() {
+      telaResultado.innerHTML = "0"
+      input = 0
     }
 
   </script>
 </body>
+
 </html>
