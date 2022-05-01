@@ -6,6 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
   <title>Calculador Gama Academy</title>
 </head>
 
@@ -54,7 +59,7 @@
       <!-- Ponto -->
       <input onClick="botaoNumerico('.')" type="button" value=".">
       <!-- IGUALDADE, Função de CALCULAR -->
-      <input type="button" value="=" onClick="calcular('=')">
+      <input type="button" value="=" onClick="calcular(' = ')">
       <!-- SOMA -->
       <input onClick="botaoOperador(' + ')" type="button" value="+">
 
@@ -63,26 +68,50 @@
 
   <p id="dadosHistorico"></p>
 
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm">Modal pequeno</button>
+
+<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      ...
+    </div>
+  </div>
+</div>
+
   <script>
 
+    
+    
     let telaResultado = document.getElementById("resultado");
     telaResultado.innerHTML = '0';
     let historico = document.getElementById('historico')
     historico.innerHTML = "crie um cálculo"
 
-
-
     var dadosHistorico = [];
+    var calculado = false;
     var input = 0;
 
     function botaoNumerico(value) {
 
-      if (telaResultado.innerHTML == "0" && value != ".") {
+      if(telaResultado.innerHTML.length < 15){
+        if (telaResultado.innerHTML == "0" && value != ".") {
         telaResultado.innerHTML = ""
       }
+
       if (!(value == ".") || !input.match(/[.]/)) {
         input += value
         telaResultado.innerHTML += value
+        console.log(input)
+      }
+
+      if(calculado){
+        telaResultado.innerHTML = value
+        calculado = false
+      }
+      }
+      else{
+        preventDefault();
+        
       }
     }
 
@@ -100,13 +129,23 @@
     }
 
     function calcular(value) {
-      historico.innerHTML = telaResultado.innerHTML + " " + value + " "
+      regex = /[^0-9]/
+
+      if(!regex.test(telaResultado.innerHTML.slice(-2,-1))) {
+        historico.innerHTML = telaResultado.innerHTML + " " + value
       var expressao = telaResultado.innerHTML
       var expressaoCorrigida = expressao.replace(/[x]/g, " * ")
       var resultado = eval(expressaoCorrigida)
-      dadosHistorico.push(historico.innerHTML + resultado)
+      dadosHistorico.push("\n" + historico.innerHTML + resultado)
       console.log(dadosHistorico)
       telaResultado.innerHTML = resultado
+
+      calculado = true
+
+      } else {
+        window.alert("Cálculo não pode ser realizado com operação vazia")
+        preventDefault();
+      }
     }
 
     function deletar() {
@@ -121,6 +160,7 @@
         telaResultado.innerHTML = telaResultado.innerHTML.slice(0,-1)
     }
 
+    // FUNÇAO MODAL
     function salvar(){
       window.alert(dadosHistorico)
     }
