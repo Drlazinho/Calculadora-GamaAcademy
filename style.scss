@@ -18,13 +18,16 @@ body{
   padding: 10px;
 
   #resultado{
-    height: 50px;
+    word-wrap: break-word;
+    height: auto;
     color: white;
     text-align: end;
     letter-spacing: 2px;
   }
 
   #historico{
+    background-color: red;
+    word-wrap: break-word;
     color: white;
     text-align: end;
     letter-spacing: 2px;
