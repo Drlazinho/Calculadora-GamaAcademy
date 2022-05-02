@@ -9,7 +9,6 @@
 
 body{
   background: url('./assets/image/TI-1920x1080.jpg') center no-repeat rgb(0, 0, 0) !important;
-  user-select: none;
 }
 
 #calculadora {
@@ -20,6 +19,7 @@ body{
   border-radius: 20px;
   padding: 10px;
   font-family: 'Press Start 2P', cursive;
+  user-select: none;
 
 
   #resultado{
@@ -59,12 +59,17 @@ body{
         cursor: pointer;
         filter: brightness(150%);
       }
-      &:focus{
-        filter: brightness(150%);
-      }
     }
   }
+
+  #dados{
+    color: #fff;
+    line-height: 2;
+    margin: 10px;
+    word-wrap: break-word;
+  }
 }
+
 
 
 @media (max-width:480px) {

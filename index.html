@@ -34,8 +34,8 @@
       <!-- Função Corrigir -->
       <input onClick="corrigir()" type="button" value="C" title="Apagar o último digito">
       <!-- Salvar -->
-      <input onClick="salvar()" type="button" value="Save" type="button" data-toggle="modal"
-        data-target=".bd-example-modal-sm" title="Salvar todos os cálculos">
+      <input onClick="salvar()" type="button" value="Save"
+        title="Salvar todos os cálculos">
       <!-- Apagar Memória -->
       <input onClick="limparMemoria()" type="button" value="AC" type="button" title="Apagar Memória">
     </div>
@@ -74,11 +74,11 @@
       <input onClick="botaoOperador(' + ')" type="button" value="+">
 
     </div>
-
-    <h3 id="historico"></h3>
+    
+    <p id="dados"></p>>
   </form>
 
-  <div id="modal">
+  <!-- <div id="modal">
     <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
       aria-hidden="true">
       <div class="modal-dialog modal-sm">
@@ -87,9 +87,7 @@
         </div>
       </div>
     </div>
-  </div>
-
-
+  </div> -->
   <script>
 
     let visorExpressao = document.getElementById("resultado");
@@ -160,7 +158,7 @@
 
     function deletar() {
       visorExpressao.innerHTML = "0"
-      calculo.innerHTML = ""
+      calculo.innerHTML = "crie um cálculo"
       input = 0
       // dados = []
     }
@@ -171,7 +169,12 @@
       if (regex.test(visorExpressao.innerHTML.slice(-1))) {
         input = input.slice(0, -1)
         visorExpressao.innerHTML = visorExpressao.innerHTML.slice(0, -1)
+        if (visorExpressao.innerHTML == '') {
+          input = 0;
+          visorExpressao.innerHTML = 0;
+        }
       }
+
       else {
         input = input.slice(0, -2)
         visorExpressao.innerHTML = visorExpressao.innerHTML.slice(0, -2)
@@ -184,19 +187,89 @@
       modal.innerHTML = ""; //Reseta os dados Historicos no modal
 
       for (let i = 0; i < dadosHistorico.length; i++) {
-        modal.innerHTML += `${dadosHistorico[i]} <br>`
+        modal.innerHTML += `${dadosHistorico[i]}` + '</br>'
       }
     }
 
-    function limparMemoria(){
+    function limparMemoria() {
       dadosHistorico.length = 0
       modal.innerHTML = ""
     }
+
+    // Acessibilidade
+    document.addEventListener("keydown", function (e) {
+      switch (e.key) {
+        case '1':
+          botaoNumerico('1')
+          break;
+        case '2':
+          botaoNumerico('2')
+          break;
+        case '3':
+          botaoNumerico('3')
+          break;
+        case '4':
+          botaoNumerico('4')
+          break;
+        case '5':
+          botaoNumerico('5')
+          break;
+        case '6':
+          botaoNumerico('6')
+          break;
+        case '7':
+          botaoNumerico('7')
+          break;
+        case '8':
+          botaoNumerico('8')
+          break;
+        case '9':
+          botaoNumerico('9')
+          break;
+        case '0':
+          botaoNumerico('0')
+          break;
+        case '.':
+          botaoNumerico('.')
+          break;
+        case ',':
+          botaoNumerico('.')
+          break;
+        case '/':
+          botaoOperador(' / ')
+          break;
+        case '*':
+          botaoOperador(' * ')
+          break;
+        case '-':
+          botaoOperador(' - ')
+          break;
+        case '+':
+          botaoOperador(' + ')
+          break;
+        case 'Enter':
+          calcular()
+          break;
+        case 'Backspace':
+          corrigir()
+          break;
+        case 'Delete':
+          deletar()
+          break;
+        case 'Insert':
+          salvar()
+          break;
+        case 'End': 
+          limparMemoria()
+          break;
+        default:
+          console.log('ERRO');
+      }
+
+    });
 
   </script>
 </body>
 
 </html>
-
-<!-- ACESSIBILIDADE TECLADO -->
 <!-- 25663 / 3 - 9 = -->

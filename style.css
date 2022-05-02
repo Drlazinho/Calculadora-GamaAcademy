@@ -8,10 +8,6 @@
 
 body {
   background: url("./assets/image/TI-1920x1080.jpg") center no-repeat black !important;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
 }
 
 #calculadora {
@@ -22,6 +18,10 @@ body {
   border-radius: 20px;
   padding: 10px;
   font-family: 'Press Start 2P', cursive;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 
 #calculadora #resultado {
@@ -72,9 +72,11 @@ body {
           filter: brightness(150%);
 }
 
-#calculadora .linha input[type=button]:focus {
-  -webkit-filter: brightness(150%);
-          filter: brightness(150%);
+#calculadora #dados {
+  color: #fff;
+  line-height: 2;
+  margin: 10px;
+  word-wrap: break-word;
 }
 
 @media (max-width: 480px) {
