@@ -8,14 +8,14 @@
 
 
 body{
-  background: url('./assets/image/TI-1920x1080.jpg') center no-repeat rgb(0, 0, 0) !important;
+  background: url('../image/background.jpg') center no-repeat rgb(0, 0, 0) !important;
 }
 
 #calculadora {
   background-color: rgb(19, 19, 19);
   margin:  10% auto 0;
   width: 80%;
-  border: 16px solid blue;
+  border: 16px solid rgb(2, 2, 202);
   border-radius: 20px;
   padding: 10px;
   font-family: 'Press Start 2P', cursive;

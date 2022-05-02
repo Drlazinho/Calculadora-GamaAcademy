@@ -7,14 +7,14 @@
 }
 
 body {
-  background: url("./assets/image/TI-1920x1080.jpg") center no-repeat black !important;
+  background: url("../image/background.jpg") center no-repeat black !important;
 }
 
 #calculadora {
   background-color: #131313;
   margin: 10% auto 0;
   width: 80%;
-  border: 16px solid blue;
+  border: 16px solid #0202ca;
   border-radius: 20px;
   padding: 10px;
   font-family: 'Press Start 2P', cursive;
