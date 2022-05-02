@@ -25,16 +25,19 @@
 
   <form id="calculadora">
 
-    <h3 id="historico"></h3>
+    <h3 id="calculo"></h3>
     <h2 id="resultado"></h2>
 
     <div class="linha">
-      <!-- Função Apagar -->
-      <input onClick="deletar()" type="button" value="AC">
+      <!-- Função Apagar o Visor -->
+      <input onClick="deletar()" type="button" value="CE" title="Limpar a tela">
       <!-- Função Corrigir -->
-      <input onClick="corrigir()" type="button" value="C">
+      <input onClick="corrigir()" type="button" value="C" title="Apagar o último digito">
       <!-- Salvar -->
-      <input onClick="salvar()" type="button" value="Save" type="button" data-toggle="modal" data-target=".bd-example-modal-sm">
+      <input onClick="salvar()" type="button" value="Save" type="button" data-toggle="modal"
+        data-target=".bd-example-modal-sm" title="Salvar todos os cálculos">
+      <!-- Apagar Memória -->
+      <input onClick="limparMemoria()" type="button" value="AC" type="button" title="Apagar Memória">
     </div>
 
     <div class="linha">
@@ -71,28 +74,29 @@
       <input onClick="botaoOperador(' + ')" type="button" value="+">
 
     </div>
+
+    <h3 id="historico"></h3>
   </form>
 
-  <p id="dadosHistorico"></p>
-
-  <input type="button" data-toggle="modal" data-target=".bd-example-modal-sm">Modal
-    pequeno</input>
-
-  <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-sm">
-      <div class="modal-content">
-        <p id="dados"></p>>
+  <div id="modal">
+    <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <p id="dados"></p>>
+        </div>
       </div>
     </div>
   </div>
 
+
   <script>
 
-    let telaResultado = document.getElementById("resultado");
-    telaResultado.innerHTML = '0';
-    let historico = document.getElementById('historico')
-    historico.innerHTML = "crie um cálculo";
+    let visorExpressao = document.getElementById("resultado");
+    visorExpressao.innerHTML = '0';
+    let calculo = document.getElementById('calculo')
+    calculo.innerHTML = "crie um cálculo";
+    let historico = document.getElementById('historico');
     let modal = document.getElementById('dados')
 
     var dadosHistorico = [];
@@ -100,16 +104,16 @@
     var input = 0;
 
     function botaoNumerico(value) {
-      if (telaResultado.innerHTML == "0" && value != ".") {
-        telaResultado.innerHTML = ""
+      if (visorExpressao.innerHTML == "0" && value != ".") {
+        visorExpressao.innerHTML = ""
       }
       if (!(value == ".") || !input.match(/[.]/)) {
         input += value
-        telaResultado.innerHTML += value
+        visorExpressao.innerHTML += value
         console.log(input)
       }
       if (calculado) {
-        telaResultado.innerHTML = value
+        visorExpressao.innerHTML = value
         calculado = false
       }
     }
@@ -118,17 +122,17 @@
       if (input !== 0 && input !== " - ") {
         // estilização do sinal de multiplicação
         if (operator === " * ") {
-          telaResultado.innerHTML += " x "
+          visorExpressao.innerHTML += " x "
           input = 0;
         }
         if (operator !== " * ") {
-          telaResultado.innerHTML += operator;
+          visorExpressao.innerHTML += operator;
           input = 0;
         }
       }
       // Se o primeiro numero é negativo
-      if(telaResultado.innerHTML == "0" && operator == " - "){
-        telaResultado.innerHTML = operator
+      if (visorExpressao.innerHTML == "0" && operator == " - ") {
+        visorExpressao.innerHTML = operator
         input = 0;
       }
       calculado = false
@@ -137,15 +141,15 @@
     function calcular() {
       regex = /[0-9]/
 
-      if (regex.test(telaResultado.innerHTML.slice(-1))) {
-        historico.innerHTML = telaResultado.innerHTML + " = "
-        var expressao = telaResultado.innerHTML
+      if (regex.test(visorExpressao.innerHTML.slice(-1))) { //impede calculo de expressão imcompleta
+        calculo.innerHTML = visorExpressao.innerHTML + " = "
+        var expressao = visorExpressao.innerHTML
         var expressaoCorrigida = expressao.replace(/[x]/g, " * ") //corrigir sinal de multiplicação para eval
         var resultado = eval(expressaoCorrigida)
-        dadosHistorico.push("\n" + historico.innerHTML + resultado)
+        var resultadoCorrigido = resultado.toString()
+        dadosHistorico.push("\n" + calculo.innerHTML + resultado)
         console.log(dadosHistorico)
-        telaResultado.innerHTML = resultado
-
+        visorExpressao.innerHTML = resultado
         calculado = true
 
       } else {
@@ -155,8 +159,8 @@
     }
 
     function deletar() {
-      telaResultado.innerHTML = "0"
-      historico.innerHTML = ""
+      visorExpressao.innerHTML = "0"
+      calculo.innerHTML = ""
       input = 0
       // dados = []
     }
@@ -164,24 +168,35 @@
     function corrigir() {
       regex = /[0-9]/
       // Regex usando pra calibrar a correção.
-      if (regex.test(telaResultado.innerHTML.slice(-1))) {
+      if (regex.test(visorExpressao.innerHTML.slice(-1))) {
         input = input.slice(0, -1)
-        telaResultado.innerHTML = telaResultado.innerHTML.slice(0, -1)
+        visorExpressao.innerHTML = visorExpressao.innerHTML.slice(0, -1)
       }
       else {
         input = input.slice(0, -2)
-        telaResultado.innerHTML = telaResultado.innerHTML.slice(0, -2)
+        visorExpressao.innerHTML = visorExpressao.innerHTML.slice(0, -2)
       }
     }
 
     // FUNÇAO MODAL
     function salvar() {
-      for(let i = 0; i < dadosHistorico.length; i++){
-      modal.innerHTML += `${dadosHistorico[i]} <br>`
+
+      modal.innerHTML = ""; //Reseta os dados Historicos no modal
+
+      for (let i = 0; i < dadosHistorico.length; i++) {
+        modal.innerHTML += `${dadosHistorico[i]} <br>`
       }
+    }
+
+    function limparMemoria(){
+      dadosHistorico.length = 0
+      modal.innerHTML = ""
     }
 
   </script>
 </body>
 
 </html>
+
+<!-- ACESSIBILIDADE TECLADO -->
+<!-- 25663 / 3 - 9 = -->

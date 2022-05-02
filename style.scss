@@ -1,34 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
 *{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-body{
-  background-color: black;
 
+body{
+  background: url('./assets/image/TI-1920x1080.jpg') center no-repeat rgb(0, 0, 0) !important;
+  user-select: none;
 }
 
 #calculadora {
-  background-color: rgb(43, 76, 154);
-  margin: 0 auto;
-  width: 400px;
-  border: 36px solid blue;
+  background-color: rgb(19, 19, 19);
+  margin:  10% auto 0;
+  width: 80%;
+  border: 16px solid blue;
   border-radius: 20px;
   padding: 10px;
+  font-family: 'Press Start 2P', cursive;
+
 
   #resultado{
     word-wrap: break-word;
     height: auto;
-    color: white;
+    color: rgb(0, 255, 8);
     text-align: end;
     letter-spacing: 2px;
+    font-size: 20px;
   }
 
-  #historico{
-    background-color: red;
+  #calculo{
     word-wrap: break-word;
-    color: white;
+    color: rgb(0, 255, 8);
+    filter: brightness(70%);
+    font-size: 16px;
+    margin-top: 10px;
     text-align: end;
     letter-spacing: 2px;
   }
@@ -41,8 +49,35 @@ body{
 
 
     input[type=button]{
-      width: 20%;
+      width: 100%;
+      height: 2rem;
+      font-size: 14px;
+      color: rgb(0, 153, 255);
+      background-color: rgb(57, 57, 57);
+
+      &:hover{
+        cursor: pointer;
+        filter: brightness(150%);
+      }
+      &:focus{
+        filter: brightness(150%);
+      }
     }
   }
+}
 
+
+@media (max-width:480px) {
+  #calculadora {
+    width: 95%;
+    padding: 0;
+
+    .linha {
+      input[type=button]{
+        height: 3.5rem;
+      }
+
+    }
+
+  }
 }
