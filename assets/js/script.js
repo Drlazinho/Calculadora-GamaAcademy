@@ -3,11 +3,12 @@ visorExpressao.innerHTML = '0'
 let calculo = document.getElementById('calculo')
 calculo.innerHTML = 'crie um cálculo'
 let historico = document.getElementById('historico')
-let modal = document.getElementById('dados')
+let listaDeCalculos = document.getElementById('listaDeCalculos')
+let calculadora = document.getElementById('calculadora')
 
-var dadosHistorico = []
-var calculado = false //resetar expressao
-var input = 0
+var dadosHistorico = [] //armazenar todos os calculos feitos e guardados na memória.
+var calculado = false //serve para auxiliar no reset da expressao após o calculo ser feito
+var input = 0 // serve para auxiliar na criação das expressões.
 
 function botaoNumerico(value) {
   if (visorExpressao.innerHTML == '0' && value != '.') {
@@ -19,8 +20,14 @@ function botaoNumerico(value) {
     console.log(input)
   }
   if (calculado) {
-    visorExpressao.innerHTML = value
-    calculado = false
+    //Após o calculo ser feito, só será aceito operadores e não números ou pontos.
+    if (value == '.') {
+      visorExpressao.innerHTML = ''
+      input = 0
+    } else {
+      visorExpressao.innerHTML = value
+      calculado = false
+    }
   }
 }
 
@@ -41,6 +48,7 @@ function botaoOperador(operator) {
     visorExpressao.innerHTML = operator
     input = 0
   }
+
   calculado = false
 }
 
@@ -53,13 +61,34 @@ function calcular() {
     var expressao = visorExpressao.innerHTML
     var expressaoCorrigida = expressao.replace(/[x]/g, ' * ') //corrigir sinal de multiplicação para eval
     var resultado = eval(expressaoCorrigida)
-    var resultadoCorrigido = resultado.toString()
     dadosHistorico.push('\n' + calculo.innerHTML + resultado)
     console.log(dadosHistorico)
     visorExpressao.innerHTML = resultado
     calculado = true
   } else {
-    window.alert('Cálculo não pode ser realizado com operação vazia')
+    calculadora.animate(
+      [ //Executa uma animação quando a operação é incompleta
+        { transform: 'translate(1px, 1px) rotate(0deg)' },
+        { transform: 'translate(-1px, -2px) rotate(-1deg)' },
+        { transform: 'translate(-3px, 0px)  rotate(1deg)' },
+        { transform: 'translate(3px, 2px)  rotate(0deg)' },
+        { transform: 'translate(1px, -1px)  rotate(1deg)' },
+        { transform: 'translate(-1px, 2px)  rotate(-1deg)' },
+        { transform: 'translate(-3px, 1px)  rotate(0deg)' },
+        { transform: 'translate(3px, 1px)  rotate(-1deg)' },
+        { transform: 'translate(-1px, -1px) rotate(1deg)' },
+        { transform: 'translate(1px, 2px)  rotate(0deg)' },
+        { transform: 'translate(1px, -2px) rotate(-1deg)' }
+      ],
+      {
+        duration: 500
+      }
+    )
+    document.body.style.filter = 'grayscale(100%)'
+    setTimeout(function () {
+      window.alert('Cálculo não pode ser realizado com operação vazia'),
+        (document.body.style.filter = 'grayscale(0%)')
+    }, 700)
     preventDefault()
   }
 }
@@ -68,7 +97,6 @@ function deletar() {
   visorExpressao.innerHTML = '0'
   calculo.innerHTML = 'crie um cálculo'
   input = 0
-  // dados = []
 }
 
 function corrigir() {
@@ -89,19 +117,19 @@ function corrigir() {
 
 // FUNÇAO MODAL
 function salvar() {
-  modal.innerHTML = '' //Reseta os dados Historicos no modal
+  listaDeCalculos.innerHTML = '' //Reseta os dados Historicos no listaDeCalculos
 
   for (let i = 0; i < dadosHistorico.length; i++) {
-    modal.innerHTML += `${dadosHistorico[i]}` + '</br>'
+    listaDeCalculos.innerHTML += `<li>${dadosHistorico[i]}` + '</li>'
   }
 }
 
 function limparMemoria() {
   dadosHistorico.length = 0
-  modal.innerHTML = ''
+  listaDeCalculos.innerHTML = ''
 }
 
-// Acessibilidade
+// Acessibilidade via teclado
 document.addEventListener('keydown', function (e) {
   switch (e.key) {
     case '1':
