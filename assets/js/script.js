@@ -43,7 +43,7 @@ function botaoOperador(operator) {
       input = 0
     }
   }
-  // Se o primeiro numero é negativo
+  // Permiti que o primeiro pode ser negativo
   if (visorExpressao.innerHTML == '0' && operator == ' - ') {
     visorExpressao.innerHTML = operator
     input = 0
@@ -115,7 +115,7 @@ function corrigir() {
   }
 }
 
-// FUNÇAO MODAL
+// FUNÇAO Salvar dados
 function salvar() {
   listaDeCalculos.innerHTML = '' //Reseta os dados Historicos no listaDeCalculos
 
@@ -199,3 +199,23 @@ document.addEventListener('keydown', function (e) {
       console.log('ERRO')
   }
 })
+
+// Aparecimento da Modal
+let modal = document.getElementById('modal')
+
+// evento de envio do form, que valida os inputs
+function start(){
+  modal.style.visibility = "hidden"
+
+}
+// Abrir modal - ajuda
+function help(){
+  modal.style.visibility = "visible"
+}
+
+//Ao clicar em qualquer lugar da tela
+// window.addEventListener("click", function() {
+//   modal.style.display = "none"
+// })
+
+

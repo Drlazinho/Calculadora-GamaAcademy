@@ -8,15 +8,15 @@
   <link rel="stylesheet" href="./assets/css/style.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
     integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+  <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
     integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-    crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+    crossorigin="anonymous"></script> -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
     integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
     crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
     integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-    crossorigin="anonymous"></script>
+    crossorigin="anonymous"></script> -->
 
   <title>Calculador Gama Academy</title>
 </head>
@@ -80,8 +80,42 @@
     <ul id="listaDeCalculos"></ul>
   </form>
 
+  <input type="button" value="?" onClick="help()" id="help">
+
+
+  <div id="modal">
+    <div class="modal-content">
+      <img src="./assets/image/veigar.gif" alt="Veigar Chefão" title="Veigar Chefão">
+      <h3>Instruções</h3>
+      <p>Olá, bem vindo a Calculadora Fliperama, desenvolvido por Lázaro Pimentel. Recomendo que leias as instruções sobre algumas teclas específicas antes começar a utilizar a calculadora</p>
+
+      <div class="sub-content">
+        <ul>
+          <li>
+            <input  type="button" value="CE" title="Limpar a tela" > - (Tecla : Delete) - Apaga todo o visor
+          </li>
+          <li>
+            <input  type="button" value="C" title="Apagar o último digito" > - (Tecla : Backspace) - Corrigir
+          </li>
+          <li>
+            <input  type="button" value="Save" title="Mostrar/Atualizar Histórico" > - (Tecla : Insert) - Mostrar/Atualizar Histórico
+          </li>
+          <li>
+            <input  type="button" value="AC" title="Apagar/Zerar Histórico" > - (Tecla : End) - Apagar/Zerar Histórico
+          </li>
+          <li>
+            <input  type="button" value="=" title="Calcular" > - (Tecla : Enter) - Calcular Resultado
+          </li>
+        </ul>
+      </div>
+
+      <p>Para rever novamento as instruções, aperte no botão símbolo " ? ", no canto superior esquerdo </p>
+
+    </div>
+    <input type="button" value="Começar" onClick="start()" id="start">
+  </div>
   <script src="./assets/js/script.js"></script>
+
 </body>
 
 </html>
-<!-- 25663 / 3 - 9 = -->
