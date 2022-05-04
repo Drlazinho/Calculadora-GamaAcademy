@@ -6,6 +6,22 @@ let historico = document.getElementById('historico')
 let listaDeCalculos = document.getElementById('listaDeCalculos')
 let calculadora = document.getElementById('calculadora')
 
+
+const pressButton = new Audio();
+const trash = new Audio();
+const crash = new Audio();
+const btnEsp1 = new Audio();
+const btnEsp2 = new Audio();
+const btnEsp3 = new Audio();
+
+pressButton.src = './assets/sound/buttons.wav'
+crash.src = './assets/sound/crash.wav'
+trash.src = './assets/sound/trash.wav'
+btnEsp1.src = './assets/sound/buttonEsp1.wav'
+btnEsp2.src = './assets/sound/buttonEsp2.wav'
+btnEsp3.src = './assets/sound/buttonEsp3.wav'
+
+
 var dadosHistorico = [] //armazenar todos os calculos feitos e guardados na memória.
 var calculado = false //serve para auxiliar no reset da expressao após o calculo ser feito
 var input = 0 // serve para auxiliar na criação das expressões.
@@ -29,6 +45,7 @@ function botaoNumerico(value) {
       calculado = false
     }
   }
+  pressButton.play()
 }
 
 function botaoOperador(operator) {
@@ -48,6 +65,7 @@ function botaoOperador(operator) {
     visorExpressao.innerHTML = operator
     input = 0
   }
+  pressButton.play()
 
   calculado = false
 }
@@ -89,14 +107,18 @@ function calcular() {
       window.alert('Cálculo não pode ser realizado com operação vazia'),
         (document.body.style.filter = 'grayscale(0%)')
     }, 700)
+    crash.play()
     preventDefault()
   }
+  pressButton.play()
+
 }
 
 function deletar() {
   visorExpressao.innerHTML = '0'
   calculo.innerHTML = 'crie um cálculo'
   input = 0
+  btnEsp1.play()
 }
 
 function corrigir() {
@@ -113,6 +135,8 @@ function corrigir() {
     input = input.slice(0, -2)
     visorExpressao.innerHTML = visorExpressao.innerHTML.slice(0, -2)
   }
+
+  btnEsp2.play()
 }
 
 // FUNÇAO Salvar dados
@@ -122,11 +146,14 @@ function salvar() {
   for (let i = 0; i < dadosHistorico.length; i++) {
     listaDeCalculos.innerHTML += `<li>${dadosHistorico[i]}` + '</li>'
   }
+
+  btnEsp3.play()
 }
 
 function limparMemoria() {
   dadosHistorico.length = 0
   listaDeCalculos.innerHTML = ''
+  trash.play()
 }
 
 // Acessibilidade via teclado
@@ -211,6 +238,8 @@ function start(){
 // Abrir modal - ajuda
 function help(){
   modal.style.visibility = "visible"
+  document.getElementById('start').value = "Voltar"
+
 }
 
 //Ao clicar em qualquer lugar da tela

@@ -104,6 +104,7 @@ body {
 #modal {
   font-family: "VT323", monospace;
   position: fixed;
+  padding-top: 200px;
   padding: 0;
   left: 0;
   top: 0;
@@ -149,8 +150,13 @@ body {
   overflow: auto;
 }
 
+#modal .modal-content span {
+  color: #0202ca;
+}
+
 #modal .modal-content img {
-  width: 100px;
+  width: 25vw;
+  max-width: 150px;
 }
 
 #modal .modal-content h3 {
@@ -170,11 +176,23 @@ body {
   background-color: #393939;
 }
 
+@media (max-width: 980px) {
+  #modal .modal-content {
+    padding-top: 120px;
+    width: 85vw;
+    height: 80vh;
+  }
+}
+
 @media (max-width: 480px) {
   #modal .modal-content {
     padding-top: 220px;
     width: 85vw;
-    height: 60vh;
+    height: 80vh;
+    font-size: 18px;
+  }
+  #modal .modal-content li {
+    margin-bottom: 10px;
   }
 }
 
@@ -182,9 +200,6 @@ body {
   #modal .modal-content {
     padding-top: 480px;
     height: 60vh;
-  }
-  #modal .modal-content li {
-    margin-bottom: 20px;
   }
 }
 
