@@ -102,10 +102,10 @@ function calcular() {
         duration: 500
       }
     )
-    document.body.style.filter = 'grayscale(100%)'
+    document.getElementById('calculadora').style.filter = 'grayscale(100%)'
     setTimeout(function () {
       window.alert('Cálculo não pode ser realizado com operação vazia'),
-        (document.body.style.filter = 'grayscale(0%)')
+        (document.getElementById('calculadora').style.filter = 'grayscale(0%)')
     }, 700)
     crash.play()
     preventDefault()
