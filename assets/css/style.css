@@ -229,11 +229,19 @@ body {
   border-radius: 100%;
   -webkit-transition: 0.2s;
   transition: 0.2s;
+  z-index: 3;
 }
 
 #help:hover {
   -webkit-transform: scale(1.2);
           transform: scale(1.2);
   background-color: crimson;
+}
+
+@media (max-height: 600px) and (orientation: landscape) {
+  #calculadora {
+    margin: 0;
+    width: 100%;
+  }
 }
 /*# sourceMappingURL=style.css.map */
