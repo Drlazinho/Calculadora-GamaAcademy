@@ -208,7 +208,7 @@ body {
   height: 2rem;
   font-size: 12px;
   cursor: pointer;
-  width: 120px;
+  width: 250px;
   -webkit-clip-path: polygon(84% 0, 100% 50%, 84% 100%, 0% 100%, 10% 51%, 0% 0%);
           clip-path: polygon(84% 0, 100% 50%, 84% 100%, 0% 100%, 10% 51%, 0% 0%);
   -webkit-transition: 0.2s;
