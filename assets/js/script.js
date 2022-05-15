@@ -222,6 +222,12 @@ document.addEventListener('keydown', function (e) {
     case 'End':
       limparMemoria()
       break
+    case ' ':
+      start()
+      break
+    case 'Escape':
+      help()
+      break
     default:
       console.log('ERRO')
   }
@@ -238,7 +244,7 @@ function start(){
 // Abrir modal - ajuda
 function help(){
   modal.style.visibility = "visible"
-  document.getElementById('start').value = "Voltar"
+  document.getElementById('start').value = "Voltar (space)"
 
 }
 
